@@ -1,0 +1,118 @@
+html {
+    font-feature-settings: normal;
+    font-variation-settings: normal;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    background-color: rgb(249, 250, 251);
+}
+html[data-bs-theme="dark"] body {
+    /*background-color: rgb(17, 24, 39);*/
+    background-color: rgb(0, 0, 0);
+}
+
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login {
+    border-radius: 0.5rem;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(229, 231, 235);
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
+    padding: 2rem;
+    width: 28rem;
+    color: rgb(17, 24, 39);
+}
+html[data-bs-theme="dark"] .login {
+    /*background-color: rgb(31, 41, 55);*/
+    background-color: rgb(27, 27, 28);
+    color: rgb(255, 255, 255);
+    border-color: rgb(64, 64, 66);
+}
+
+.login h1 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+}
+.login label {
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+.login input {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 0.625rem;
+    background-color: rgb(249, 250, 251);
+    border-color: rgb(209, 213, 219);
+    color: rgb(17, 24, 39);
+}
+html[data-bs-theme="dark"] .login input {
+    color: rgb(255, 255, 255);
+    background-color: rgb(64, 64, 66);
+    border-color: rgb(88, 90, 94);
+}
+
+.login input:focus {
+    box-shadow: none;
+    border-color: rgb(209, 213, 219);
+    color: rgb(17, 24, 39);
+    background-color: rgb(249, 250, 251);
+}
+form > div {
+    margin-top: 25px;
+}
+.checkbox-wrapper label {
+    color: rgb(107, 114, 128);
+    margin-left: 0.75rem;
+}
+html[data-bs-theme="dark"] .checkbox-wrapper label {
+    color: rgb(255, 255, 255);
+    font-weight: normal;
+}
+
+.btn {
+    width: 100%;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+    background-color: rgb(21, 94, 117);
+    margin-top: 25px;
+}
+.btn:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgb(22, 78, 99);
+}
+
+.alert {
+    color: rgb(127, 29, 29);
+    border-color: rgb(127, 29, 29);
+    background-color: rgb(252, 165, 165);
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.register-link-wrapper {
+    color: rgb(107, 114, 128);
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}

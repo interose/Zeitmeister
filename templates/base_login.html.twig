@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html class="h-full">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body class="antialiased">
+            {% block body %}{% endblock %}
+    </body>
+</html>
