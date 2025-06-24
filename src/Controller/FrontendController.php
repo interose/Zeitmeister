@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Lib\PublicHolidayService;
+use App\Lib\SqlDataTransformer;
 use App\Repository\TimeLogRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +17,8 @@ final class FrontendController extends AbstractController
     #[Route('/', name: 'app_frontend_index')]
     public function index(
         TimeLogRepository $repository,
+        SqlDataTransformer $transformer,
+        PublicHolidayService $holidayService,
         #[MapQueryParameter] ?int $month = null,
         #[MapQueryParameter] ?int $year = null,
     ): Response {
@@ -27,10 +31,16 @@ final class FrontendController extends AbstractController
         }
 
         try {
-            $timeLogs = [];
+            $holidays = $holidayService->getPublicHolidays($year);
             $timeLogs = $repository->findBySearch($this->getUser(), $month, $year);
+            if (0 == count($timeLogs)) {
+                $timeLogs = $repository->getEmpty($month, $year);
+            }
+            $timeLogs = $transformer->setupData($timeLogs, $holidays);
         } catch (\Exception $e) {
-
+            return $this->render('frontend/indexError.html.twig', [
+                'message' => $e->getMessage(),
+            ]);
         }
 
         return $this->render('frontend/index.html.twig', [

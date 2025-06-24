@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<turbo-frame
+    id="list"
+    class="aria-busy:opacity-50 aria-busy:blur-sm transition-all"
+>
+    <div class="p-2.5">
+        <div class="text-red-500 bg-red-100 dark:bg-red-800 dark:text-red-200 p-2.5">
+            <p class="font-bold">Something strange happened!</p>
+            <p>{{ message }}</p>
+        </div>
+    </div>
+</turbo-frame>
+{% endblock %}
