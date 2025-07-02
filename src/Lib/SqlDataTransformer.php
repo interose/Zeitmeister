@@ -7,7 +7,7 @@ class SqlDataTransformer
     public function setupData(array $timeLogs, array $holidays): array
     {
         $result = [];
-        $created = $timeLogs[0]['created'];
+        $created = null;
 
         $tz = new \DateTimeZone('Europe/Berlin');
         $td = \DateTime::createFromFormat('Y-m-d', $timeLogs[0]['created'], $tz);
@@ -39,8 +39,6 @@ class SqlDataTransformer
                 $weekSum += $timeLog['diff'];
                 $timeLog['weekSum'] = $weekSum;
             }
-
-
 
             $result[] = $timeLog;
         }
