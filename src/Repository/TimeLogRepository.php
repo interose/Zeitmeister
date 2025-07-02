@@ -24,7 +24,16 @@ class TimeLogRepository extends ServiceEntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
 
-        $firstDayOfMonth = sprintf('%04d-%02d-01', $year, $month);
+        $start = new \DateTime();
+        $start->setDate($year, $month, 1);
+
+        $end = clone $start;
+        $end->modify('last day of this month');
+
+        $firstDayOfMonth = $start->format('Y-m-d');
+        $startTs = $start->format('Y-m-d').' 00:00:00';
+        $endTs = $end->format('Y-m-d').' 23:59:59';
+
         $trackerId = $user->getId();
 
         $sql = <<<SQL
@@ -40,7 +49,7 @@ WITH RECURSIVE all_days(day) AS (
 distinct_trackers AS (
     SELECT DISTINCT tracker_id
     FROM time_log
-    WHERE created BETWEEN '$firstDayOfMonth' AND LAST_DAY('$firstDayOfMonth')
+    WHERE created >= '$startTs' AND created <= '$endTs'
 ),
 -- Kombinierte Liste: jeder Tag × jeder Tracker
 days_and_trackers AS (
@@ -49,7 +58,7 @@ days_and_trackers AS (
     CROSS JOIN (
         SELECT DISTINCT tracker_id
         FROM time_log
-        WHERE created BETWEEN '$firstDayOfMonth' AND LAST_DAY('$firstDayOfMonth') AND tracker_id = $trackerId
+        WHERE created >= '$startTs' AND created <= '$endTs' AND tracker_id = $trackerId
     ) t
 ),
 -- Paarung von Checkin und dem nächstfolgenden Checkout
@@ -73,7 +82,7 @@ paired_logs AS (
             AND t3.event = 'checkout'
       )
     WHERE t1.event = 'checkin'
-      AND t1.created BETWEEN '$firstDayOfMonth' AND LAST_DAY('$firstDayOfMonth')
+      AND t1.created >= '$startTs' AND t1.created <= '$endTs'
 )
 -- Endgültige Abfrage: Tag × Tracker + Zeitdaten (sofern vorhanden)
 SELECT
