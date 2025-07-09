@@ -26,7 +26,10 @@
                 Differenz
             </th>
             <th scope="col" class="sticky top-0 p-2 pr-4 text-xs font-medium text-right text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700">
-                Summe
+                Soll
+            </th>
+            <th scope="col" class="sticky top-0 p-2 pr-4 text-xs font-medium text-right text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700">
+                Ist
             </th>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
@@ -34,33 +37,34 @@
                 {% if timeLog.created|date('N') == 7 or timeLog.created|date('N') == 6 %}
                     <tr class="border-b dark:border-gray-700 dark:hover:bg-gray-600 bg-gray-100">
                         <td class="p-1 px-2 text-xs font-normal text-gray-600 whitespace-nowrap dark:text-gray-400">
-                            {{ timeLog.created|date('D') }} {{ timeLog.created|date('d.') }}
+                            {{ timeLog.date }}
                         </td>
-                        <td colspan="4" class="p-1 px-2 text-xs text-center font-bold text-gray-600 whitespace-nowrap dark:text-gray-400">
+                        <td colspan="5" class="p-1 px-2 text-xs text-center font-bold text-gray-600 whitespace-nowrap dark:text-gray-400">
                             {% if timeLog.publicHoliday is not empty %}{{ timeLog.publicHoliday }}{% endif %}
                         </td>
                     </tr>
                 {% elseif timeLog.publicHoliday is not empty %}
                     <tr class="border-b dark:border-gray-700 dark:hover:bg-gray-600 bg-gray-100">
                         <td class="p-1 px-2 text-xs font-normal text-gray-600 whitespace-nowrap dark:text-gray-400">
-                            {{ timeLog.created|date('D') }} {{ timeLog.created|date('d.') }}
+                            {{ timeLog.date }}
                         </td>
                         <td colspan="2" class="p-1 px-2 text-xs text-center font-bold text-gray-600 whitespace-nowrap dark:text-gray-400">
                             {{ timeLog.publicHoliday }}
                         </td>
                         <td class="p-1 px-2 text-xs font-normal text-center text-gray-600 whitespace-nowrap dark:text-gray-400">
-                            {% if timeLog.diff is not empty %}{{ timeLog.diff }}{% endif %}
+
                         </td>
                         <td class="p-1 px-2 pr-4 text-xs font-normal text-right text-gray-600 whitespace-nowrap dark:text-gray-400">
-                            {% if timeLog.weekSum is not empty %}{{ timeLog.weekSum }}{% endif %}
+                            {% if timeLog.weekSumPlan > 0 %}{{ timeLog.weekSumPlan }}{% endif %}
+                        </td>
+                        <td class="p-1 px-2 pr-4 text-xs font-normal text-right text-gray-600 whitespace-nowrap dark:text-gray-400">
+                            {% if timeLog.weekSum > 0 %}{{ timeLog.weekSum }}{% endif %}
                         </td>
                     </tr>
                 {% else %}
                     <tr class="border-b dark:border-gray-700 dark:hover:bg-gray-600">
                         <td class="p-1 px-2 text-xs font-normal text-gray-600 whitespace-nowrap dark:text-gray-400">
-                            {% if timeLog.date is not empty %}
-                                {{ timeLog.date|date('D') }} {{ timeLog.date|date('d.') }}
-                            {% endif %}
+                            {{ timeLog.date }}
                         </td>
                         <td class="p-1 px-2 text-xs font-normal text-center text-gray-600 whitespace-nowrap dark:text-gray-400">
                             {% if timeLog.checkin_time is not empty %}{{ timeLog.checkin_time|date('H:i') }}{% endif %}
@@ -72,13 +76,16 @@
                             {% if timeLog.diff is not empty %}{{ timeLog.diff }}{% endif %}
                         </td>
                         <td class="p-1 px-2 pr-4 text-xs font-normal text-right text-gray-600 whitespace-nowrap dark:text-gray-400">
-                            {% if timeLog.weekSum is not empty %}{{ timeLog.weekSum }}{% endif %}
+                            {% if timeLog.weekSumPlan > 0 %}{{ timeLog.weekSumPlan }}{% endif %}
+                        </td>
+                        <td class="p-1 px-2 pr-4 text-xs font-normal text-right text-gray-600 whitespace-nowrap dark:text-gray-400">
+                            {% if timeLog.weekSum > 0 %}{{ timeLog.weekSum }}{% endif %}
                         </td>
                     </tr>
                 {% endif %}
             {% else %}
                 <tr>
-                    <td colspan="4" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">No records found</td>
+                    <td colspan="5" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">No records found</td>
                 </tr>
             {% endfor %}
             </tbody>

@@ -19,6 +19,13 @@ final class ApiController extends AbstractController
     #[Route('/time/add', name: 'app_api_time_add', methods: ['POST'])]
     public function add(#[MapRequestPayload] PayloadTimeTrackDto $payloadTimeTrackDto, EntityManagerInterface $em): JsonResponse
     {
+        $time = $payloadTimeTrackDto->getTime();
+
+        $dayOfWeek = $time->format('N');
+        if (6 == $dayOfWeek || 7 == $dayOfWeek) {
+            return new JsonResponse(null, Response::HTTP_CREATED);
+        }
+
         $obj = new TimeLog();
         $obj->setTracker($this->getUser());
         $obj->setEvent($payloadTimeTrackDto->getEventTypeEnum());
