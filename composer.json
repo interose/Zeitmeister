@@ -102,6 +102,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^4.1",
+        "fzaninotto/faker": "^1.5",
         "phpunit/phpunit": "^11.5",
         "symfony/browser-kit": "7.3.*",
         "symfony/css-selector": "7.3.*",
