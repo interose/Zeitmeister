@@ -23,18 +23,6 @@ class AppFixtures extends Fixture
             $this->userPasswordHasher->hashPassword($user, 'test123')
         );
         $manager->persist($user);
-
-        $user = new User();
-        $user->setUsername('marc');
-        $user->setRoles(['ROLE_USER', 'ROLE_API']);
-        $user->setToken(bin2hex(random_bytes(32)));
-        $user->setPassword(
-            $this->userPasswordHasher->hashPassword($user, 'SonneSonne')
-        );
-        $manager->persist($user);
-
-
-
         $manager->flush();
     }
 }
